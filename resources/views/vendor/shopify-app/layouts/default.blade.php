@@ -8,8 +8,7 @@
         <link rel="stylesheet" href="{{secure_asset('css/main.css')}}">
         <link rel="stylesheet" href="{{secure_asset('css/app.css')}}">
         @yield('styles')
-    </head>
-
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <body>
     <h1>testing</h1>
         <div class="app-wrapper">

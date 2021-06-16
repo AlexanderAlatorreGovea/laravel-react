@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { AppProvider, Card, Page } from "@shopify/polaris";
 import { Provider, TitleBar } from "@shopify/app-bridge-react";
-import MainLayout from './layouts/MainLayout';
-import Dashboard from './Dashboard';
-import Home from './Home';
+
+import MainLayout from "./layouts/MainLayout";
+import Home from "./Home";
+import CreateNewProductLink from "./links/CreateNewProductLink";
+import ShowAllLinks from './links/ShowAllLinks';
 export default class App extends Component {
     render() {
         const config = {
@@ -16,9 +19,22 @@ export default class App extends Component {
         return (
             <AppProvider>
                 <Provider config={config}>
-                    <MainLayout>
-                        <Home/>
-                    </MainLayout>
+                    <Router>
+                        <TitleBar title="Polaris Demo" />
+                        <MainLayout>
+                            <Switch> 
+                                <Route path="/app/links/custom/new">
+                                    <CreateNewProductLink/>
+                                </Route>
+                                <Route path="/app/links/all">
+                                    <ShowAllLinks/>
+                                </Route>
+                                <Route path="/app/">
+                                    <Home />
+                                </Route>
+                            </Switch>
+                        </MainLayout>
+                    </Router>
                 </Provider>
             </AppProvider>
         );

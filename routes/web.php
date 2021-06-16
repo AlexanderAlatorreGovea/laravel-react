@@ -29,6 +29,7 @@ Route::get('/app', function () {
     return view('home');
 })->middleware(['auth.shopify'])->name('home');
 
+
 //This will redirect user to login page.
 Route::get('/login', function () {
     if (Auth::user()) {
@@ -42,3 +43,8 @@ Route::get('/app/{path}', [
     'as' => 'dashboard',
     'where' => ['path' => '.*']
 ]);
+
+
+Route::post('/app/graphql', [
+    'uses' => 'DashboardController@graphql',
+    'as' => 'qraphqlapi']);
