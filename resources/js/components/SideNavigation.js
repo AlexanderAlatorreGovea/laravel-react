@@ -19,7 +19,7 @@ const SideNavigation = () => {
                     <a href="#">
                         <i className="metismenu-icon pe-7s-rocket" />
                         Create New Links
-                    </a>
+                    </a> 
                     <ul className="mm-collapse mm-show" style={{}}>
                         <li>
                             <Link to="/app/links/product/new">

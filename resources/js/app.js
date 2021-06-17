@@ -7,7 +7,10 @@ import { Provider, TitleBar } from "@shopify/app-bridge-react";
 import MainLayout from "./layouts/MainLayout";
 import Home from "./Home";
 import CreateNewProductLink from "./links/CreateNewProductLink";
+import CreateNewCollectionLink from "./links/CreateNewCollectionLink";
+import CreateNewCustomLink from "./links/CreateNewCustomLink";
 import ShowAllLinks from './links/ShowAllLinks';
+
 export default class App extends Component {
     render() {
         const config = {
@@ -23,8 +26,14 @@ export default class App extends Component {
                         <TitleBar title="Polaris Demo" />
                         <MainLayout>
                             <Switch> 
+                                <Route path="/app/links/product/new">
+                                    <CreateNewProductLink />
+                                </Route>
+                                <Route path="/app/links/collection/new">
+                                    <CreateNewCollectionLink />
+                                </Route>
                                 <Route path="/app/links/custom/new">
-                                    <CreateNewProductLink/>
+                                    <CreateNewCustomLink />
                                 </Route>
                                 <Route path="/app/links/all">
                                     <ShowAllLinks/>

@@ -7,11 +7,11 @@ import {
 import { useLocation, useHistory } from "react-router-dom";
 import axios from "axios";
 
-const CreateNewProductLink = () => {
+const CreateNewCollectionLink = () => {
     const location = useLocation();
     const history = useHistory();
     const [resourcePickerOpen, setResourcePickerOpen] = useState(true);
-    const [productData, setProductData] = useState(false);
+    const [collectionData, setCollectionData] = useState(false);
     const [formText, setFormText] = useState({
         discountCode: "",
         campaignSource: "",
@@ -23,24 +23,33 @@ const CreateNewProductLink = () => {
 
     useRoutePropagation(location);
 
+    const slugify = text =>
+        text
+            .toString()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+            .trim()
+            .replace(/\s+/g, "-")
+            .replace(/[^\w-]+/g, "")
+            .replace(/--+/g, "-");
+
     const handleResourcePicker = resource => {
         axios
             .post("/app/graphql", {
                 query: `{
-                        product(id: "${resource.selection[0].id}") {
-                            title
-                            description
-                            onlineStoreUrl
-                        }
+                       collection(id: "${resource.selection[0].id}") {
+                           title
+                       }
                     }`
             })
             .then(function(response) {
-                const productInfo = {
+                const collectionInfo = {
                     ...resource.selection[0],
-                    productUrl: response.data.product.onlineStoreUrl
+                    collectionUrl: `https://shoparoe.myshopify.com/collections/${slugify(response.data.collection.title)}`
                 };
 
-                setProductData(productInfo);
+                setCollectionData(collectionInfo);
             })
             .catch(function(error) {
                 console.log(error);
@@ -59,26 +68,23 @@ const CreateNewProductLink = () => {
         console.log(formText);
     };
 
-    //const domainUrl = `${productData.productUrl}`.match(/^(?:\/\/|[^\/]+)*/)[0];
-    //const slug = `${productData.productUrl}`.match(/[^\/]+$/)[0];
-
     return (
         <>
-            <TitleBar title="Create New Product Link" />
+            <TitleBar title="Create New Collection Link" />
             <ResourcePicker
-                resourceType="Product"
+                resourceType="Collection"
                 open={resourcePickerOpen}
                 onSelection={handleResourcePicker}
-                onCancel={() => history.push('/app')}
+                onCancel={() => history.push("/app")}
             />
-            <div className={`app-page-title ${productData ? "" : "d-none"}`}>
+            <div className={`app-page-title ${collectionData ? "" : "d-none"}`}>
                 <div className="page-title-wrapper">
                     <div className="page-title-heading">
                         <div className="page-title-icon">
                             <i className="pe-7s-display1 icon-gradient bg-premium-dark"></i>
                         </div>
                         <div>
-                        Create New Product Link
+                            Create New Collection Link
                             <div className="page-title-subheading">
                                 Wide selection of forms controls, using the
                                 Bootstrap 4 code base, but built with React.
@@ -150,9 +156,9 @@ const CreateNewProductLink = () => {
                     </div>
                 </div>
             </div>
-            {productData && (
+            {collectionData && (
                 <Content
-                    productData={productData}
+                    collectionData={collectionData}
                     handleText={handleText}
                     formText={formText}
                 />
@@ -161,24 +167,24 @@ const CreateNewProductLink = () => {
     );
 };
 
-const Content = ({ productData, formText, handleText }) => {
+const Content = ({ collectionData, formText, handleText }) => {
     return (
         <>
-            <div className={`row ${productData ? "" : "d-none"}`}>
+            <div className={`row ${collectionData ? "" : "d-none"}`}>
                 <div className="col-md-6">
                     <div className="main-card mb-3 card">
                         <div className="card-body">
                             <h5 className="card-title">Controls Types</h5>
                             <form className>
                                 <div className="position-relative form-group">
-                                    <label htmlFor="productUrl">
-                                        Product URL
+                                    <label htmlFor="collectionUrl">
+                                        collection URL
                                     </label>
                                     <input
-                                        defaultValue={productData.productUrl}
-                                        name="productUrl"
-                                        id="productUrl"
-                                        placeholder="Product URL"
+                                        defaultValue={collectionData.collectionUrl}
+                                        name="collectionUrl"
+                                        id="collectionUrl"
+                                        placeholder="collection URL"
                                         type="text"
                                         className="form-control"
                                     />
@@ -312,12 +318,12 @@ const Content = ({ productData, formText, handleText }) => {
                             <div className="row mb-3">
                                 <div className="col-md-4">
                                     <img
-                                        src={`${productData.images[0].originalSrc}`}
+                                        src={`${collectionData.image.originalSrc}`}
                                         className="img-fluid"
                                     />
                                 </div>
                                 <div className="col-md-8 d-flex align-items-center">
-                                    <h2>{productData.title}</h2>
+                                    <h2>{collectionData.title}</h2>
                                 </div>
                             </div>
                             <h5 className="card-title">Link Preview</h5>
@@ -329,14 +335,32 @@ const Content = ({ productData, formText, handleText }) => {
                                     type="text"
                                     className="form-control"
                                     value={`${
-                                        productData.productUrl
+                                        collectionData.collectionUrl
                                     }?${formText.discountCode &&
-                                        `&utm_discount=${formText.discountCode.replace(/ /g, '%20')}`}${formText.campaignSource &&
-                                        `&utm_source=${formText.campaignSource.replace(/ /g, '%20')}`}${formText.campaignMedium &&
-                                        `&utm_mediu=${formText.campaignMedium.replace(/ /g, '%20')}`}${formText.campaignName &&
-                                        `&utm_name=${formText.campaignName.replace(/ /g, '%20')}`}${formText.campaignTerm &&
-                                        `&utm_term=${formText.campaignTerm.replace(/ /g, '%20')}`}${formText.campaignContent &&
-                                        `&utm_content=${formText.campaignContent.replace(/ /g, '%20')}`}`}
+                                        `&utm_discount=${formText.discountCode.replace(
+                                            / /g,
+                                            "%20"
+                                        )}`}${formText.campaignSource &&
+                                        `&utm_source=${formText.campaignSource.replace(
+                                            / /g,
+                                            "%20"
+                                        )}`}${formText.campaignMedium &&
+                                        `&utm_mediu=${formText.campaignMedium.replace(
+                                            / /g,
+                                            "%20"
+                                        )}`}${formText.campaignName &&
+                                        `&utm_name=${formText.campaignName.replace(
+                                            / /g,
+                                            "%20"
+                                        )}`}${formText.campaignTerm &&
+                                        `&utm_term=${formText.campaignTerm.replace(
+                                            / /g,
+                                            "%20"
+                                        )}`}${formText.campaignContent &&
+                                        `&utm_content=${formText.campaignContent.replace(
+                                            / /g,
+                                            "%20"
+                                        )}`}`}
                                 ></textarea>
                             </div>
                         </div>
@@ -347,4 +371,4 @@ const Content = ({ productData, formText, handleText }) => {
     );
 };
 
-export default CreateNewProductLink;
+export default CreateNewCollectionLink;

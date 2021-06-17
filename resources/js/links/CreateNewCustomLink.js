@@ -7,12 +7,13 @@ import {
 import { useLocation, useHistory } from "react-router-dom";
 import axios from "axios";
 
-const CreateNewProductLink = () => {
+const CreateNewCustomLink = () => {
     const location = useLocation();
     const history = useHistory();
     const [resourcePickerOpen, setResourcePickerOpen] = useState(true);
-    const [productData, setProductData] = useState(false);
+    const [customData, setCustomData] = useState(false);
     const [formText, setFormText] = useState({
+        customUrl: "",
         discountCode: "",
         campaignSource: "",
         campaignMedium: "",
@@ -23,29 +24,16 @@ const CreateNewProductLink = () => {
 
     useRoutePropagation(location);
 
-    const handleResourcePicker = resource => {
-        axios
-            .post("/app/graphql", {
-                query: `{
-                        product(id: "${resource.selection[0].id}") {
-                            title
-                            description
-                            onlineStoreUrl
-                        }
-                    }`
-            })
-            .then(function(response) {
-                const productInfo = {
-                    ...resource.selection[0],
-                    productUrl: response.data.product.onlineStoreUrl
-                };
-
-                setProductData(productInfo);
-            })
-            .catch(function(error) {
-                console.log(error);
-            });
-    };
+    const slugify = text =>
+        text
+            .toString()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+            .trim()
+            .replace(/\s+/g, "-")
+            .replace(/[^\w-]+/g, "")
+            .replace(/--+/g, "-");
 
     const handleText = (name, text) => {
         const newState = {
@@ -59,29 +47,19 @@ const CreateNewProductLink = () => {
         console.log(formText);
     };
 
-    //const domainUrl = `${productData.productUrl}`.match(/^(?:\/\/|[^\/]+)*/)[0];
-    //const slug = `${productData.productUrl}`.match(/[^\/]+$/)[0];
-
     return (
         <>
-            <TitleBar title="Create New Product Link" />
-            <ResourcePicker
-                resourceType="Product"
-                open={resourcePickerOpen}
-                onSelection={handleResourcePicker}
-                onCancel={() => history.push('/app')}
-            />
-            <div className={`app-page-title ${productData ? "" : "d-none"}`}>
+            <TitleBar title="Create New Custom Link" />
+            <div className="app-page-title">
                 <div className="page-title-wrapper">
                     <div className="page-title-heading">
                         <div className="page-title-icon">
                             <i className="pe-7s-display1 icon-gradient bg-premium-dark"></i>
                         </div>
                         <div>
-                        Create New Product Link
+                            Create New Custom Link
                             <div className="page-title-subheading">
-                                Wide selection of forms controls, using the
-                                Bootstrap 4 code base, but built with React.
+                                Create a new custom link
                             </div>
                         </div>
                     </div>
@@ -150,37 +128,41 @@ const CreateNewProductLink = () => {
                     </div>
                 </div>
             </div>
-            {productData && (
-                <Content
-                    productData={productData}
-                    handleText={handleText}
-                    formText={formText}
-                />
-            )}
+            <Content
+                customData={customData}
+                handleText={handleText}
+                formText={formText}
+            />
         </>
     );
 };
 
-const Content = ({ productData, formText, handleText }) => {
+const Content = ({ customData, formText, handleText }) => {
     return (
         <>
-            <div className={`row ${productData ? "" : "d-none"}`}>
+            <div className="row">
                 <div className="col-md-6">
                     <div className="main-card mb-3 card">
                         <div className="card-body">
                             <h5 className="card-title">Controls Types</h5>
                             <form className>
                                 <div className="position-relative form-group">
-                                    <label htmlFor="productUrl">
-                                        Product URL
+                                    <label htmlFor="customUrl">
+                                        Custom URL
                                     </label>
                                     <input
-                                        defaultValue={productData.productUrl}
-                                        name="productUrl"
-                                        id="productUrl"
-                                        placeholder="Product URL"
+                                        value={formText.customUrl}
+                                        name="customUrl"
+                                        id="customUrl"
+                                        placeholder="custom URL"
                                         type="text"
                                         className="form-control"
+                                        onChange={event =>
+                                            handleText(
+                                                "customUrl",
+                                                event.target.value
+                                            )
+                                        }
                                     />
                                 </div>
                                 <div className="position-relative form-group">
@@ -311,13 +293,9 @@ const Content = ({ productData, formText, handleText }) => {
                             <h5 className="card-title">Converse</h5>
                             <div className="row mb-3">
                                 <div className="col-md-4">
-                                    <img
-                                        src={`${productData.images[0].originalSrc}`}
-                                        className="img-fluid"
-                                    />
                                 </div>
                                 <div className="col-md-8 d-flex align-items-center">
-                                    <h2>{productData.title}</h2>
+                                    <h2>{customData.title}</h2>
                                 </div>
                             </div>
                             <h5 className="card-title">Link Preview</h5>
@@ -329,14 +307,32 @@ const Content = ({ productData, formText, handleText }) => {
                                     type="text"
                                     className="form-control"
                                     value={`${
-                                        productData.productUrl
+                                        formText.customUrl
                                     }?${formText.discountCode &&
-                                        `&utm_discount=${formText.discountCode.replace(/ /g, '%20')}`}${formText.campaignSource &&
-                                        `&utm_source=${formText.campaignSource.replace(/ /g, '%20')}`}${formText.campaignMedium &&
-                                        `&utm_mediu=${formText.campaignMedium.replace(/ /g, '%20')}`}${formText.campaignName &&
-                                        `&utm_name=${formText.campaignName.replace(/ /g, '%20')}`}${formText.campaignTerm &&
-                                        `&utm_term=${formText.campaignTerm.replace(/ /g, '%20')}`}${formText.campaignContent &&
-                                        `&utm_content=${formText.campaignContent.replace(/ /g, '%20')}`}`}
+                                        `&utm_discount=${formText.discountCode.replace(
+                                            / /g,
+                                            "%20"
+                                        )}`}${formText.campaignSource &&
+                                        `&utm_source=${formText.campaignSource.replace(
+                                            / /g,
+                                            "%20"
+                                        )}`}${formText.campaignMedium &&
+                                        `&utm_mediu=${formText.campaignMedium.replace(
+                                            / /g,
+                                            "%20"
+                                        )}`}${formText.campaignName &&
+                                        `&utm_name=${formText.campaignName.replace(
+                                            / /g,
+                                            "%20"
+                                        )}`}${formText.campaignTerm &&
+                                        `&utm_term=${formText.campaignTerm.replace(
+                                            / /g,
+                                            "%20"
+                                        )}`}${formText.campaignContent &&
+                                        `&utm_content=${formText.campaignContent.replace(
+                                            / /g,
+                                            "%20"
+                                        )}`}`}
                                 ></textarea>
                             </div>
                         </div>
@@ -347,4 +343,4 @@ const Content = ({ productData, formText, handleText }) => {
     );
 };
 
-export default CreateNewProductLink;
+export default CreateNewCustomLink;

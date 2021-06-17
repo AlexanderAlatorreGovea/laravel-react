@@ -93710,7 +93710,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _layouts_MainLayout__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./layouts/MainLayout */ "./resources/js/layouts/MainLayout.js");
 /* harmony import */ var _Home__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Home */ "./resources/js/Home.js");
 /* harmony import */ var _links_CreateNewProductLink__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./links/CreateNewProductLink */ "./resources/js/links/CreateNewProductLink.js");
-/* harmony import */ var _links_ShowAllLinks__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./links/ShowAllLinks */ "./resources/js/links/ShowAllLinks.js");
+/* harmony import */ var _links_CreateNewCollectionLink__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./links/CreateNewCollectionLink */ "./resources/js/links/CreateNewCollectionLink.js");
+/* harmony import */ var _links_CreateNewCustomLink__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./links/CreateNewCustomLink */ "./resources/js/links/CreateNewCustomLink.js");
+/* harmony import */ var _links_ShowAllLinks__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./links/ShowAllLinks */ "./resources/js/links/ShowAllLinks.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -93732,6 +93734,8 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
 
 
 
@@ -93767,10 +93771,14 @@ var App = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_4__["TitleBar"], {
         title: "Polaris Demo"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_layouts_MainLayout__WEBPACK_IMPORTED_MODULE_5__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-        path: "/app/links/custom/new"
+        path: "/app/links/product/new"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_links_CreateNewProductLink__WEBPACK_IMPORTED_MODULE_7__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        path: "/app/links/collection/new"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_links_CreateNewCollectionLink__WEBPACK_IMPORTED_MODULE_8__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        path: "/app/links/custom/new"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_links_CreateNewCustomLink__WEBPACK_IMPORTED_MODULE_9__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/app/links/all"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_links_ShowAllLinks__WEBPACK_IMPORTED_MODULE_8__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_links_ShowAllLinks__WEBPACK_IMPORTED_MODULE_10__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/app/"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Home__WEBPACK_IMPORTED_MODULE_6__["default"], null)))))));
     }
@@ -94456,6 +94464,636 @@ function MainLayout(props) {
 
 /***/ }),
 
+/***/ "./resources/js/links/CreateNewCollectionLink.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/links/CreateNewCollectionLink.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @shopify/app-bridge-react */ "./node_modules/@shopify/app-bridge-react/index.js");
+/* harmony import */ var _shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+var CreateNewCollectionLink = function CreateNewCollectionLink() {
+  var location = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["useLocation"])();
+  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["useHistory"])();
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true),
+      _useState2 = _slicedToArray(_useState, 2),
+      resourcePickerOpen = _useState2[0],
+      setResourcePickerOpen = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      collectionData = _useState4[0],
+      setCollectionData = _useState4[1];
+
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
+    discountCode: "",
+    campaignSource: "",
+    campaignMedium: "",
+    campaignName: "",
+    campaignTerm: "",
+    campaignContent: ""
+  }),
+      _useState6 = _slicedToArray(_useState5, 2),
+      formText = _useState6[0],
+      setFormText = _useState6[1];
+
+  Object(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_1__["useRoutePropagation"])(location);
+
+  var slugify = function slugify(text) {
+    return text.toString().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim().replace(/\s+/g, "-").replace(/[^\w-]+/g, "").replace(/--+/g, "-");
+  };
+
+  var handleResourcePicker = function handleResourcePicker(resource) {
+    axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("/app/graphql", {
+      query: "{\n                       collection(id: \"".concat(resource.selection[0].id, "\") {\n                           title\n                       }\n                    }")
+    }).then(function (response) {
+      var collectionInfo = _objectSpread(_objectSpread({}, resource.selection[0]), {}, {
+        collectionUrl: "https://shoparoe.myshopify.com/collections/".concat(slugify(response.data.collection.title))
+      });
+
+      setCollectionData(collectionInfo);
+    })["catch"](function (error) {
+      console.log(error);
+    });
+  };
+
+  var handleText = function handleText(name, text) {
+    var newState = _defineProperty({}, name, text);
+
+    setFormText(_objectSpread(_objectSpread({}, formText), newState));
+    console.log(formText);
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_1__["TitleBar"], {
+    title: "Create New Collection Link"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_1__["ResourcePicker"], {
+    resourceType: "Collection",
+    open: resourcePickerOpen,
+    onSelection: handleResourcePicker,
+    onCancel: function onCancel() {
+      return history.push("/app");
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "app-page-title ".concat(collectionData ? "" : "d-none")
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "page-title-wrapper"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "page-title-heading"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "page-title-icon"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "pe-7s-display1 icon-gradient bg-premium-dark"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Create New Collection Link", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "page-title-subheading"
+  }, "Wide selection of forms controls, using the Bootstrap 4 code base, but built with React."))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "page-title-actions"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    type: "button",
+    "data-toggle": "tooltip",
+    title: "Example Tooltip",
+    "data-placement": "bottom",
+    className: "btn-shadow mr-3 btn btn-dark"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fa fa-star"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "d-inline-block dropdown"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    type: "button",
+    className: "btn-shadow dropdown-toggle btn btn-info"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "btn-icon-wrapper pr-2 opacity-7"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fa fa-business-time fa-w-20"
+  })), "Buttons"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    role: "menu",
+    className: "dropdown-menu dropdown-menu-right"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    className: "nav flex-column"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    className: "nav-item"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "#;",
+    className: "nav-link"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "nav-link-icon lnr-inbox"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Inbox"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "ml-auto badge badge-pill badge-secondary"
+  }, "86"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    className: "nav-item"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "#;",
+    className: "nav-link"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "nav-link-icon lnr-book"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Book"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "ml-auto badge badge-pill badge-danger"
+  }, "5"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    className: "nav-item"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "#;",
+    className: "nav-link"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "nav-link-icon lnr-picture"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Picture"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    className: "nav-item"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    disabled: true,
+    href: "#;",
+    className: "nav-link disabled"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "nav-link-icon lnr-file-empty"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "File Disabled"))))))))), collectionData && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Content, {
+    collectionData: collectionData,
+    handleText: handleText,
+    formText: formText
+  }));
+};
+
+var Content = function Content(_ref) {
+  var collectionData = _ref.collectionData,
+      formText = _ref.formText,
+      handleText = _ref.handleText;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "row ".concat(collectionData ? "" : "d-none")
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-6"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "main-card mb-3 card"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "card-body"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+    className: "card-title"
+  }, "Controls Types"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+    className: true
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "position-relative form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "collectionUrl"
+  }, "collection URL"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    defaultValue: collectionData.collectionUrl,
+    name: "collectionUrl",
+    id: "collectionUrl",
+    placeholder: "collection URL",
+    type: "text",
+    className: "form-control"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "position-relative form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "discountCode"
+  }, "Discount Code"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    onChange: function onChange(event) {
+      return handleText("discountCode", event.target.value);
+    },
+    value: formText.discountCode,
+    name: "discountCode",
+    id: "discountCode",
+    placeholder: "50JULY4, 2021XMAS",
+    type: "text",
+    className: "form-control"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "position-relative form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "campaignSource"
+  }, "Campaign Source"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    value: formText.campaignSource,
+    name: "campaignSource",
+    id: "campaignSource",
+    onChange: function onChange(event) {
+      return handleText("campaignSource", event.target.value);
+    },
+    placeholder: "Google, Youtube, Instagram",
+    type: "text",
+    className: "form-control"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "position-relative form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "campaignMedium"
+  }, "Campaign Medium"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    name: "campaignMedium",
+    id: "campaignMedium",
+    placeholder: "CPC, Banner, Instagram Profile Link",
+    type: "text",
+    onChange: function onChange(event) {
+      return handleText("campaignMedium", event.target.value);
+    },
+    value: formText.campaignMedium,
+    className: "form-control"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "position-relative form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "campaignName"
+  }, "Campaign Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    value: formText.campaignName,
+    name: "campaignName",
+    onChange: function onChange(event) {
+      return handleText("campaignName", event.target.value);
+    },
+    id: "campaignName",
+    placeholder: "50July42020, Labor Day 2020, COUPON234KID",
+    type: "text",
+    className: "form-control"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "position-relative form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "campaignTerm"
+  }, "Campaign Term (Optional)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    value: formText.campaignTerm,
+    onChange: function onChange(event) {
+      return handleText("campaignTerm", event.target.value);
+    },
+    name: "campaignTerm",
+    id: "campaignTerm",
+    placeholder: "Add Paid Keywords",
+    type: "text",
+    className: "form-control"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "position-relative form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "campaignContent"
+  }, "Campaign Content"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    value: formText.campaignContent,
+    name: "campaignContent",
+    id: "campaignContent",
+    onChange: function onChange(event) {
+      return handleText("campaignContent", event.target.value);
+    },
+    placeholder: "Girl With Laptop Image Ad, Image3, Banner 5",
+    type: "text",
+    className: "form-control"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "mt-1 btn btn-primary"
+  }, "Submit"))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-6"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "main-card mb-3 card"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "card-body"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+    className: "card-title"
+  }, "Converse"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "row mb-3"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-4"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    src: "".concat(collectionData.image.originalSrc),
+    className: "img-fluid"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-8 d-flex align-items-center"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, collectionData.title))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+    className: "card-title"
+  }, "Link Preview"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "position-relative form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+    name: "discountCode",
+    id: "discountCode",
+    disabled: true,
+    type: "text",
+    className: "form-control",
+    value: "".concat(collectionData.collectionUrl, "?").concat(formText.discountCode && "&utm_discount=".concat(formText.discountCode.replace(/ /g, "%20"))).concat(formText.campaignSource && "&utm_source=".concat(formText.campaignSource.replace(/ /g, "%20"))).concat(formText.campaignMedium && "&utm_mediu=".concat(formText.campaignMedium.replace(/ /g, "%20"))).concat(formText.campaignName && "&utm_name=".concat(formText.campaignName.replace(/ /g, "%20"))).concat(formText.campaignTerm && "&utm_term=".concat(formText.campaignTerm.replace(/ /g, "%20"))).concat(formText.campaignContent && "&utm_content=".concat(formText.campaignContent.replace(/ /g, "%20")))
+  })))))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (CreateNewCollectionLink);
+
+/***/ }),
+
+/***/ "./resources/js/links/CreateNewCustomLink.js":
+/*!***************************************************!*\
+  !*** ./resources/js/links/CreateNewCustomLink.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @shopify/app-bridge-react */ "./node_modules/@shopify/app-bridge-react/index.js");
+/* harmony import */ var _shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+var CreateNewCustomLink = function CreateNewCustomLink() {
+  var location = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["useLocation"])();
+  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["useHistory"])();
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true),
+      _useState2 = _slicedToArray(_useState, 2),
+      resourcePickerOpen = _useState2[0],
+      setResourcePickerOpen = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      customData = _useState4[0],
+      setCustomData = _useState4[1];
+
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
+    customUrl: "",
+    discountCode: "",
+    campaignSource: "",
+    campaignMedium: "",
+    campaignName: "",
+    campaignTerm: "",
+    campaignContent: ""
+  }),
+      _useState6 = _slicedToArray(_useState5, 2),
+      formText = _useState6[0],
+      setFormText = _useState6[1];
+
+  Object(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_1__["useRoutePropagation"])(location);
+
+  var slugify = function slugify(text) {
+    return text.toString().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim().replace(/\s+/g, "-").replace(/[^\w-]+/g, "").replace(/--+/g, "-");
+  };
+
+  var handleText = function handleText(name, text) {
+    var newState = _defineProperty({}, name, text);
+
+    setFormText(_objectSpread(_objectSpread({}, formText), newState));
+    console.log(formText);
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_1__["TitleBar"], {
+    title: "Create New Custom Link"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "app-page-title"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "page-title-wrapper"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "page-title-heading"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "page-title-icon"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "pe-7s-display1 icon-gradient bg-premium-dark"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Create New Custom Link", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "page-title-subheading"
+  }, "Create a new custom link"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "page-title-actions"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    type: "button",
+    "data-toggle": "tooltip",
+    title: "Example Tooltip",
+    "data-placement": "bottom",
+    className: "btn-shadow mr-3 btn btn-dark"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fa fa-star"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "d-inline-block dropdown"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    type: "button",
+    className: "btn-shadow dropdown-toggle btn btn-info"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "btn-icon-wrapper pr-2 opacity-7"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fa fa-business-time fa-w-20"
+  })), "Buttons"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    role: "menu",
+    className: "dropdown-menu dropdown-menu-right"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    className: "nav flex-column"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    className: "nav-item"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "#;",
+    className: "nav-link"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "nav-link-icon lnr-inbox"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Inbox"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "ml-auto badge badge-pill badge-secondary"
+  }, "86"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    className: "nav-item"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "#;",
+    className: "nav-link"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "nav-link-icon lnr-book"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Book"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "ml-auto badge badge-pill badge-danger"
+  }, "5"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    className: "nav-item"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "#;",
+    className: "nav-link"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "nav-link-icon lnr-picture"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Picture"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    className: "nav-item"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    disabled: true,
+    href: "#;",
+    className: "nav-link disabled"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "nav-link-icon lnr-file-empty"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "File Disabled"))))))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Content, {
+    customData: customData,
+    handleText: handleText,
+    formText: formText
+  }));
+};
+
+var Content = function Content(_ref) {
+  var customData = _ref.customData,
+      formText = _ref.formText,
+      handleText = _ref.handleText;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-6"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "main-card mb-3 card"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "card-body"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+    className: "card-title"
+  }, "Controls Types"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+    className: true
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "position-relative form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "customUrl"
+  }, "Custom URL"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    value: formText.customUrl,
+    name: "customUrl",
+    id: "customUrl",
+    placeholder: "custom URL",
+    type: "text",
+    className: "form-control",
+    onChange: function onChange(event) {
+      return handleText("customUrl", event.target.value);
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "position-relative form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "discountCode"
+  }, "Discount Code"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    onChange: function onChange(event) {
+      return handleText("discountCode", event.target.value);
+    },
+    value: formText.discountCode,
+    name: "discountCode",
+    id: "discountCode",
+    placeholder: "50JULY4, 2021XMAS",
+    type: "text",
+    className: "form-control"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "position-relative form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "campaignSource"
+  }, "Campaign Source"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    value: formText.campaignSource,
+    name: "campaignSource",
+    id: "campaignSource",
+    onChange: function onChange(event) {
+      return handleText("campaignSource", event.target.value);
+    },
+    placeholder: "Google, Youtube, Instagram",
+    type: "text",
+    className: "form-control"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "position-relative form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "campaignMedium"
+  }, "Campaign Medium"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    name: "campaignMedium",
+    id: "campaignMedium",
+    placeholder: "CPC, Banner, Instagram Profile Link",
+    type: "text",
+    onChange: function onChange(event) {
+      return handleText("campaignMedium", event.target.value);
+    },
+    value: formText.campaignMedium,
+    className: "form-control"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "position-relative form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "campaignName"
+  }, "Campaign Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    value: formText.campaignName,
+    name: "campaignName",
+    onChange: function onChange(event) {
+      return handleText("campaignName", event.target.value);
+    },
+    id: "campaignName",
+    placeholder: "50July42020, Labor Day 2020, COUPON234KID",
+    type: "text",
+    className: "form-control"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "position-relative form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "campaignTerm"
+  }, "Campaign Term (Optional)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    value: formText.campaignTerm,
+    onChange: function onChange(event) {
+      return handleText("campaignTerm", event.target.value);
+    },
+    name: "campaignTerm",
+    id: "campaignTerm",
+    placeholder: "Add Paid Keywords",
+    type: "text",
+    className: "form-control"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "position-relative form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "campaignContent"
+  }, "Campaign Content"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    value: formText.campaignContent,
+    name: "campaignContent",
+    id: "campaignContent",
+    onChange: function onChange(event) {
+      return handleText("campaignContent", event.target.value);
+    },
+    placeholder: "Girl With Laptop Image Ad, Image3, Banner 5",
+    type: "text",
+    className: "form-control"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "mt-1 btn btn-primary"
+  }, "Submit"))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-6"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "main-card mb-3 card"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "card-body"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+    className: "card-title"
+  }, "Converse"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "row mb-3"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-4"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-8 d-flex align-items-center"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, customData.title))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+    className: "card-title"
+  }, "Link Preview"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "position-relative form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+    name: "discountCode",
+    id: "discountCode",
+    disabled: true,
+    type: "text",
+    className: "form-control",
+    value: "".concat(formText.customUrl, "?").concat(formText.discountCode && "&utm_discount=".concat(formText.discountCode.replace(/ /g, "%20"))).concat(formText.campaignSource && "&utm_source=".concat(formText.campaignSource.replace(/ /g, "%20"))).concat(formText.campaignMedium && "&utm_mediu=".concat(formText.campaignMedium.replace(/ /g, "%20"))).concat(formText.campaignName && "&utm_name=".concat(formText.campaignName.replace(/ /g, "%20"))).concat(formText.campaignTerm && "&utm_term=".concat(formText.campaignTerm.replace(/ /g, "%20"))).concat(formText.campaignContent && "&utm_content=".concat(formText.campaignContent.replace(/ /g, "%20")))
+  })))))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (CreateNewCustomLink);
+
+/***/ }),
+
 /***/ "./resources/js/links/CreateNewProductLink.js":
 /*!****************************************************!*\
   !*** ./resources/js/links/CreateNewProductLink.js ***!
@@ -94497,7 +95135,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var CreateNewProductLink = function CreateNewProductLink() {
   var location = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["useLocation"])();
-  Object(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_1__["useRoutePropagation"])(location);
+  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["useHistory"])();
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true),
       _useState2 = _slicedToArray(_useState, 2),
@@ -94510,19 +95148,20 @@ var CreateNewProductLink = function CreateNewProductLink() {
       setProductData = _useState4[1];
 
   var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
-    discountCode: '',
-    campaignSource: '',
-    campaignMedium: '',
-    campaignName: '',
-    campaignTerm: '',
-    campaignContent: ''
+    discountCode: "",
+    campaignSource: "",
+    campaignMedium: "",
+    campaignName: "",
+    campaignTerm: "",
+    campaignContent: ""
   }),
       _useState6 = _slicedToArray(_useState5, 2),
       formText = _useState6[0],
       setFormText = _useState6[1];
 
+  Object(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_1__["useRoutePropagation"])(location);
+
   var handleResourcePicker = function handleResourcePicker(resource) {
-    setProductData(resource.selection[0]);
     axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("/app/graphql", {
       query: "{\n                        product(id: \"".concat(resource.selection[0].id, "\") {\n                            title\n                            description\n                            onlineStoreUrl\n                        }\n                    }")
     }).then(function (response) {
@@ -94546,11 +95185,14 @@ var CreateNewProductLink = function CreateNewProductLink() {
 
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_1__["TitleBar"], {
-    title: "Create New Link"
+    title: "Create New Product Link"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_1__["ResourcePicker"], {
     resourceType: "Product",
     open: resourcePickerOpen,
-    onSelection: handleResourcePicker
+    onSelection: handleResourcePicker,
+    onCancel: function onCancel() {
+      return history.push('/app');
+    }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "app-page-title ".concat(productData ? "" : "d-none")
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -94561,7 +95203,7 @@ var CreateNewProductLink = function CreateNewProductLink() {
     className: "page-title-icon"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
     className: "pe-7s-display1 icon-gradient bg-premium-dark"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Form Controls", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Create New Product Link", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "page-title-subheading"
   }, "Wide selection of forms controls, using the Bootstrap 4 code base, but built with React."))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "page-title-actions"
@@ -94660,7 +95302,7 @@ var Content = function Content(_ref) {
     htmlFor: "discountCode"
   }, "Discount Code"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
     onChange: function onChange(event) {
-      return handleText('discountCode', event.target.value);
+      return handleText("discountCode", event.target.value);
     },
     value: formText.discountCode,
     name: "discountCode",
@@ -94677,7 +95319,7 @@ var Content = function Content(_ref) {
     name: "campaignSource",
     id: "campaignSource",
     onChange: function onChange(event) {
-      return handleText('campaignSource', event.target.value);
+      return handleText("campaignSource", event.target.value);
     },
     placeholder: "Google, Youtube, Instagram",
     type: "text",
@@ -94692,7 +95334,7 @@ var Content = function Content(_ref) {
     placeholder: "CPC, Banner, Instagram Profile Link",
     type: "text",
     onChange: function onChange(event) {
-      return handleText('campaignMedium', event.target.value);
+      return handleText("campaignMedium", event.target.value);
     },
     value: formText.campaignMedium,
     className: "form-control"
@@ -94704,7 +95346,7 @@ var Content = function Content(_ref) {
     value: formText.campaignName,
     name: "campaignName",
     onChange: function onChange(event) {
-      return handleText('campaignName', event.target.value);
+      return handleText("campaignName", event.target.value);
     },
     id: "campaignName",
     placeholder: "50July42020, Labor Day 2020, COUPON234KID",
@@ -94717,7 +95359,7 @@ var Content = function Content(_ref) {
   }, "Campaign Term (Optional)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
     value: formText.campaignTerm,
     onChange: function onChange(event) {
-      return handleText('campaignTerm', event.target.value);
+      return handleText("campaignTerm", event.target.value);
     },
     name: "campaignTerm",
     id: "campaignTerm",
@@ -94733,7 +95375,7 @@ var Content = function Content(_ref) {
     name: "campaignContent",
     id: "campaignContent",
     onChange: function onChange(event) {
-      return handleText('campaignContent', event.target.value);
+      return handleText("campaignContent", event.target.value);
     },
     placeholder: "Girl With Laptop Image Ad, Image3, Banner 5",
     type: "text",
@@ -94767,7 +95409,7 @@ var Content = function Content(_ref) {
     disabled: true,
     type: "text",
     className: "form-control",
-    value: "".concat(productData.productUrl, "?utm_source=").concat(formText.discountCode, "&utm_source=").concat(formText.campaignSource, "&utm_source=").concat(formText.campaignMedium, "&utm_source=").concat(formText.campaignName, "&utm_source=").concat(formText.campaignTerm, "&utm_source=").concat(formText.campaignContent, "&utm_source=").concat(formText.campaignContent)
+    value: "".concat(productData.productUrl, "?").concat(formText.discountCode && "&utm_discount=".concat(formText.discountCode.replace(/ /g, '%20'))).concat(formText.campaignSource && "&utm_source=".concat(formText.campaignSource.replace(/ /g, '%20'))).concat(formText.campaignMedium && "&utm_mediu=".concat(formText.campaignMedium.replace(/ /g, '%20'))).concat(formText.campaignName && "&utm_name=".concat(formText.campaignName.replace(/ /g, '%20'))).concat(formText.campaignTerm && "&utm_term=".concat(formText.campaignTerm.replace(/ /g, '%20'))).concat(formText.campaignContent && "&utm_content=".concat(formText.campaignContent.replace(/ /g, '%20')))
   })))))));
 };
 
