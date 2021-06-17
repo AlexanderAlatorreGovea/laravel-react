@@ -24,7 +24,6 @@ const CreateNewProductLink = () => {
     });
 
     const handleResourcePicker = resource => {
-        setProductData(resource.selection[0]);
 
         axios
             .post("/app/graphql", {
