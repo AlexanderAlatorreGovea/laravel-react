@@ -59,9 +59,6 @@ const CreateNewProductLink = () => {
         console.log(formText);
     };
 
-    //const domainUrl = `${productData.productUrl}`.match(/^(?:\/\/|[^\/]+)*/)[0];
-    //const slug = `${productData.productUrl}`.match(/[^\/]+$/)[0];
-
     return (
         <>
             <TitleBar title="Create New Product Link" />
@@ -69,7 +66,7 @@ const CreateNewProductLink = () => {
                 resourceType="Product"
                 open={resourcePickerOpen}
                 onSelection={handleResourcePicker}
-                onCancel={() => history.push('/app')}
+                onCancel={() => history.push("/app")}
             />
             <div className={`app-page-title ${productData ? "" : "d-none"}`}>
                 <div className="page-title-wrapper">
@@ -78,7 +75,7 @@ const CreateNewProductLink = () => {
                             <i className="pe-7s-display1 icon-gradient bg-premium-dark"></i>
                         </div>
                         <div>
-                        Create New Product Link
+                            Create New Product Link
                             <div className="page-title-subheading">
                                 Wide selection of forms controls, using the
                                 Bootstrap 4 code base, but built with React.
@@ -160,6 +157,25 @@ const CreateNewProductLink = () => {
         </>
     );
 };
+
+function UrlPreview({ formText, formText: discountCode, productData }) {
+    const domainUrl = `${productData.productUrl}`.match(/^(?:\/\/|[^\/]+)*/)[0];
+    const slug = `${productData.productUrl}`.match(/[^\/]+$/)[0];
+
+    if(formText.discountCode == ''){
+        return(<>
+            <div className="position-relative form-group">
+            {`${productData.productUrl}?${formText.campaignSource == '' ? '' : `utm_source=${formText.campaignSource.replace(/ /g, '%20')}`}${formText.campaignMedium == '' ? '' : `&utm_medium=${formText.campaignMedium.replace(/ /g, '%20')}`}${formText.campaignName == '' ? '' : `&utm_campaign=${formText.campaignName.replace(/ /g, '%20')}`}${formText.campaignTerm == '' ? '' : `&utm_term=${formText.campaignTerm.replace(/ /g, '%20')}`}${formText.campaignContent == '' ? '' : `&utm_campaign=${formText.campaignContent.replace(/ /g, '%20')}`}`}
+            </div>
+        </>)
+    } else {
+        return(<>
+            <div className="position-relative form-group">
+            {`${domainUrl}/discount/${formText.discountCode}?redirect=%2Fproducts%2F${slug}${formText.campaignSource == '' ? '' : `&utm_source=${formText.campaignSource.replace(/ /g, '%20')}`}${formText.campaignMedium == '' ? '' : `&utm_medium=${formText.campaignMedium.replace(/ /g, '%20')}`}${formText.campaignName == '' ? '' : `&utm_campaign=${formText.campaignName.replace(/ /g, '%20')}`}${formText.campaignTerm == '' ? '' : `&utm_term=${formText.campaignTerm.replace(/ /g, '%20')}`}${formText.campaignContent == '' ? '' : `&utm_campaign=${formText.campaignContent.replace(/ /g, '%20')}`}`}
+            </div>
+        </>)
+    }
+}
 
 const Content = ({ productData, formText, handleText }) => {
     return (
@@ -321,24 +337,10 @@ const Content = ({ productData, formText, handleText }) => {
                                 </div>
                             </div>
                             <h5 className="card-title">Link Preview</h5>
-                            <div className="position-relative form-group">
-                                <textarea
-                                    name="discountCode"
-                                    id="discountCode"
-                                    disabled
-                                    type="text"
-                                    className="form-control"
-                                    value={`${
-                                        productData.productUrl
-                                    }?${formText.discountCode &&
-                                        `&utm_discount=${formText.discountCode.replace(/ /g, '%20')}`}${formText.campaignSource &&
-                                        `&utm_source=${formText.campaignSource.replace(/ /g, '%20')}`}${formText.campaignMedium &&
-                                        `&utm_mediu=${formText.campaignMedium.replace(/ /g, '%20')}`}${formText.campaignName &&
-                                        `&utm_name=${formText.campaignName.replace(/ /g, '%20')}`}${formText.campaignTerm &&
-                                        `&utm_term=${formText.campaignTerm.replace(/ /g, '%20')}`}${formText.campaignContent &&
-                                        `&utm_content=${formText.campaignContent.replace(/ /g, '%20')}`}`}
-                                ></textarea>
-                            </div>
+                            <UrlPreview
+                                productData={productData}
+                                formText={formText}
+                            />
                         </div>
                     </div>
                 </div>

@@ -94640,10 +94640,29 @@ var CreateNewCollectionLink = function CreateNewCollectionLink() {
   }));
 };
 
-var Content = function Content(_ref) {
-  var collectionData = _ref.collectionData,
-      formText = _ref.formText,
-      handleText = _ref.handleText;
+function UrlPreview(_ref) {
+  var formText = _ref.formText,
+      collectionData = _ref.collectionData,
+      domainUrl = _ref.domainUrl,
+      slug = _ref.slug;
+
+  if (formText.discountCode == "") {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "position-relative form-group"
+    }, "".concat(collectionData.collectionUrl, "?").concat(formText.campaignSource == "" ? "" : "utm_source=".concat(formText.campaignSource.replace(/ /g, "%20"))).concat(formText.campaignMedium == "" ? "" : "&utm_medium=".concat(formText.campaignMedium.replace(/ /g, "%20"))).concat(formText.campaignName == "" ? "" : "&utm_campaign=".concat(formText.campaignName.replace(/ /g, "%20"))).concat(formText.campaignTerm == "" ? "" : "&utm_term=".concat(formText.campaignTerm.replace(/ /g, "%20"))).concat(formText.campaignContent == "" ? "" : "&utm_campaign=".concat(formText.campaignContent.replace(/ /g, "%20")))));
+  } else {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "position-relative form-group"
+    }, "".concat(domainUrl, "/discount/").concat(formText.discountCode, "?redirect=%2Fcollections%2F").concat(slug).concat(formText.campaignSource == "" ? "" : "&utm_source=".concat(formText.campaignSource.replace(/ /g, "%20"))).concat(formText.campaignMedium == "" ? "" : "&utm_medium=".concat(formText.campaignMedium.replace(/ /g, "%20"))).concat(formText.campaignName == "" ? "" : "&utm_campaign=".concat(formText.campaignName.replace(/ /g, "%20"))).concat(formText.campaignTerm == "" ? "" : "&utm_term=".concat(formText.campaignTerm.replace(/ /g, "%20"))).concat(formText.campaignContent == "" ? "" : "&utm_campaign=".concat(formText.campaignContent.replace(/ /g, "%20")))));
+  }
+}
+
+var Content = function Content(_ref2) {
+  var collectionData = _ref2.collectionData,
+      formText = _ref2.formText,
+      handleText = _ref2.handleText;
+  var domainUrl = "".concat(collectionData.collectionUrl).match(/^(?:\/\/|[^\/]+)*/)[0];
+  var slug = "".concat(collectionData.collectionUrl).match(/[^\/]+$/)[0];
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row ".concat(collectionData ? "" : "d-none")
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -94774,13 +94793,11 @@ var Content = function Content(_ref) {
     className: "card-title"
   }, "Link Preview"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "position-relative form-group"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
-    name: "discountCode",
-    id: "discountCode",
-    disabled: true,
-    type: "text",
-    className: "form-control",
-    value: "".concat(collectionData.collectionUrl, "?").concat(formText.discountCode && "&utm_discount=".concat(formText.discountCode.replace(/ /g, "%20"))).concat(formText.campaignSource && "&utm_source=".concat(formText.campaignSource.replace(/ /g, "%20"))).concat(formText.campaignMedium && "&utm_mediu=".concat(formText.campaignMedium.replace(/ /g, "%20"))).concat(formText.campaignName && "&utm_name=".concat(formText.campaignName.replace(/ /g, "%20"))).concat(formText.campaignTerm && "&utm_term=".concat(formText.campaignTerm.replace(/ /g, "%20"))).concat(formText.campaignContent && "&utm_content=".concat(formText.campaignContent.replace(/ /g, "%20")))
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(UrlPreview, {
+    collectionData: collectionData,
+    formText: formText,
+    domainUrl: domainUrl,
+    slug: slug
   })))))));
 };
 
@@ -95179,9 +95196,7 @@ var CreateNewProductLink = function CreateNewProductLink() {
 
     setFormText(_objectSpread(_objectSpread({}, formText), newState));
     console.log(formText);
-  }; //const domainUrl = `${productData.productUrl}`.match(/^(?:\/\/|[^\/]+)*/)[0];
-  //const slug = `${productData.productUrl}`.match(/[^\/]+$/)[0];
-
+  };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_1__["TitleBar"], {
     title: "Create New Product Link"
@@ -95190,7 +95205,7 @@ var CreateNewProductLink = function CreateNewProductLink() {
     open: resourcePickerOpen,
     onSelection: handleResourcePicker,
     onCancel: function onCancel() {
-      return history.push('/app');
+      return history.push("/app");
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "app-page-title ".concat(productData ? "" : "d-none")
@@ -95268,10 +95283,28 @@ var CreateNewProductLink = function CreateNewProductLink() {
   }));
 };
 
-var Content = function Content(_ref) {
-  var productData = _ref.productData,
-      formText = _ref.formText,
-      handleText = _ref.handleText;
+function UrlPreview(_ref) {
+  var formText = _ref.formText,
+      discountCode = _ref.formText,
+      productData = _ref.productData;
+  var domainUrl = "".concat(productData.productUrl).match(/^(?:\/\/|[^\/]+)*/)[0];
+  var slug = "".concat(productData.productUrl).match(/[^\/]+$/)[0];
+
+  if (formText.discountCode == '') {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "position-relative form-group"
+    }, "".concat(productData.productUrl, "?").concat(formText.campaignSource == '' ? '' : "utm_source=".concat(formText.campaignSource.replace(/ /g, '%20'))).concat(formText.campaignMedium == '' ? '' : "&utm_medium=".concat(formText.campaignMedium.replace(/ /g, '%20'))).concat(formText.campaignName == '' ? '' : "&utm_campaign=".concat(formText.campaignName.replace(/ /g, '%20'))).concat(formText.campaignTerm == '' ? '' : "&utm_term=".concat(formText.campaignTerm.replace(/ /g, '%20'))).concat(formText.campaignContent == '' ? '' : "&utm_campaign=".concat(formText.campaignContent.replace(/ /g, '%20')))));
+  } else {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "position-relative form-group"
+    }, "".concat(domainUrl, "/discount/").concat(formText.discountCode, "?redirect=%2Fproducts%2F").concat(slug).concat(formText.campaignSource == '' ? '' : "&utm_source=".concat(formText.campaignSource.replace(/ /g, '%20'))).concat(formText.campaignMedium == '' ? '' : "&utm_medium=".concat(formText.campaignMedium.replace(/ /g, '%20'))).concat(formText.campaignName == '' ? '' : "&utm_campaign=".concat(formText.campaignName.replace(/ /g, '%20'))).concat(formText.campaignTerm == '' ? '' : "&utm_term=".concat(formText.campaignTerm.replace(/ /g, '%20'))).concat(formText.campaignContent == '' ? '' : "&utm_campaign=".concat(formText.campaignContent.replace(/ /g, '%20')))));
+  }
+}
+
+var Content = function Content(_ref2) {
+  var productData = _ref2.productData,
+      formText = _ref2.formText,
+      handleText = _ref2.handleText;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row ".concat(productData ? "" : "d-none")
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -95400,16 +95433,10 @@ var Content = function Content(_ref) {
     className: "col-md-8 d-flex align-items-center"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, productData.title))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
     className: "card-title"
-  }, "Link Preview"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "position-relative form-group"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
-    name: "discountCode",
-    id: "discountCode",
-    disabled: true,
-    type: "text",
-    className: "form-control",
-    value: "".concat(productData.productUrl, "?").concat(formText.discountCode && "&utm_discount=".concat(formText.discountCode.replace(/ /g, '%20'))).concat(formText.campaignSource && "&utm_source=".concat(formText.campaignSource.replace(/ /g, '%20'))).concat(formText.campaignMedium && "&utm_mediu=".concat(formText.campaignMedium.replace(/ /g, '%20'))).concat(formText.campaignName && "&utm_name=".concat(formText.campaignName.replace(/ /g, '%20'))).concat(formText.campaignTerm && "&utm_term=".concat(formText.campaignTerm.replace(/ /g, '%20'))).concat(formText.campaignContent && "&utm_content=".concat(formText.campaignContent.replace(/ /g, '%20')))
-  })))))));
+  }, "Link Preview"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(UrlPreview, {
+    productData: productData,
+    formText: formText
+  }))))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (CreateNewProductLink);

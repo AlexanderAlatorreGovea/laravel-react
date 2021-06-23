@@ -46,7 +46,9 @@ const CreateNewCollectionLink = () => {
             .then(function(response) {
                 const collectionInfo = {
                     ...resource.selection[0],
-                    collectionUrl: `https://shoparoe.myshopify.com/collections/${slugify(response.data.collection.title)}`
+                    collectionUrl: `https://shoparoe.myshopify.com/collections/${slugify(
+                        response.data.collection.title
+                    )}`
                 };
 
                 setCollectionData(collectionInfo);
@@ -167,7 +169,103 @@ const CreateNewCollectionLink = () => {
     );
 };
 
+function UrlPreview({ formText, collectionData, domainUrl, slug }) {
+    if (formText.discountCode == "") {
+        return (
+            <>
+                <div className="position-relative form-group">
+                    {`${collectionData.collectionUrl}?${
+                        formText.campaignSource == ""
+                            ? ""
+                            : `utm_source=${formText.campaignSource.replace(
+                                  / /g,
+                                  "%20"
+                              )}`
+                    }${
+                        formText.campaignMedium == ""
+                            ? ""
+                            : `&utm_medium=${formText.campaignMedium.replace(
+                                  / /g,
+                                  "%20"
+                              )}`
+                    }${
+                        formText.campaignName == ""
+                            ? ""
+                            : `&utm_campaign=${formText.campaignName.replace(
+                                  / /g,
+                                  "%20"
+                              )}`
+                    }${
+                        formText.campaignTerm == ""
+                            ? ""
+                            : `&utm_term=${formText.campaignTerm.replace(
+                                  / /g,
+                                  "%20"
+                              )}`
+                    }${
+                        formText.campaignContent == ""
+                            ? ""
+                            : `&utm_campaign=${formText.campaignContent.replace(
+                                  / /g,
+                                  "%20"
+                              )}`
+                    }`}
+                </div>
+            </>
+        );
+    } else {
+        return (
+            <>
+                <div className="position-relative form-group">
+                    {`${domainUrl}/discount/${
+                        formText.discountCode
+                    }?redirect=%2Fcollections%2F${slug}${
+                        formText.campaignSource == ""
+                            ? ""
+                            : `&utm_source=${formText.campaignSource.replace(
+                                  / /g,
+                                  "%20"
+                              )}`
+                    }${
+                        formText.campaignMedium == ""
+                            ? ""
+                            : `&utm_medium=${formText.campaignMedium.replace(
+                                  / /g,
+                                  "%20"
+                              )}`
+                    }${
+                        formText.campaignName == ""
+                            ? ""
+                            : `&utm_campaign=${formText.campaignName.replace(
+                                  / /g,
+                                  "%20"
+                              )}`
+                    }${
+                        formText.campaignTerm == ""
+                            ? ""
+                            : `&utm_term=${formText.campaignTerm.replace(
+                                  / /g,
+                                  "%20"
+                              )}`
+                    }${
+                        formText.campaignContent == ""
+                            ? ""
+                            : `&utm_campaign=${formText.campaignContent.replace(
+                                  / /g,
+                                  "%20"
+                              )}`
+                    }`}
+                </div>
+            </>
+        );
+    }
+}
+
 const Content = ({ collectionData, formText, handleText }) => {
+    const domainUrl = `${collectionData.collectionUrl}`.match(
+        /^(?:\/\/|[^\/]+)*/
+    )[0];
+    const slug = `${collectionData.collectionUrl}`.match(/[^\/]+$/)[0];
     return (
         <>
             <div className={`row ${collectionData ? "" : "d-none"}`}>
@@ -181,7 +279,9 @@ const Content = ({ collectionData, formText, handleText }) => {
                                         collection URL
                                     </label>
                                     <input
-                                        defaultValue={collectionData.collectionUrl}
+                                        defaultValue={
+                                            collectionData.collectionUrl
+                                        }
                                         name="collectionUrl"
                                         id="collectionUrl"
                                         placeholder="collection URL"
@@ -328,40 +428,12 @@ const Content = ({ collectionData, formText, handleText }) => {
                             </div>
                             <h5 className="card-title">Link Preview</h5>
                             <div className="position-relative form-group">
-                                <textarea
-                                    name="discountCode"
-                                    id="discountCode"
-                                    disabled
-                                    type="text"
-                                    className="form-control"
-                                    value={`${
-                                        collectionData.collectionUrl
-                                    }?${formText.discountCode &&
-                                        `&utm_discount=${formText.discountCode.replace(
-                                            / /g,
-                                            "%20"
-                                        )}`}${formText.campaignSource &&
-                                        `&utm_source=${formText.campaignSource.replace(
-                                            / /g,
-                                            "%20"
-                                        )}`}${formText.campaignMedium &&
-                                        `&utm_mediu=${formText.campaignMedium.replace(
-                                            / /g,
-                                            "%20"
-                                        )}`}${formText.campaignName &&
-                                        `&utm_name=${formText.campaignName.replace(
-                                            / /g,
-                                            "%20"
-                                        )}`}${formText.campaignTerm &&
-                                        `&utm_term=${formText.campaignTerm.replace(
-                                            / /g,
-                                            "%20"
-                                        )}`}${formText.campaignContent &&
-                                        `&utm_content=${formText.campaignContent.replace(
-                                            / /g,
-                                            "%20"
-                                        )}`}`}
-                                ></textarea>
+                                <UrlPreview
+                                    collectionData={collectionData}
+                                    formText={formText}
+                                    domainUrl={domainUrl}
+                                    slug={slug}
+                                />
                             </div>
                         </div>
                     </div>
