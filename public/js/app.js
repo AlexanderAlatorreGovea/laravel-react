@@ -95177,6 +95177,43 @@ var CreateNewProductLink = function CreateNewProductLink() {
 
   Object(_shopify_app_bridge_react__WEBPACK_IMPORTED_MODULE_1__["useRoutePropagation"])(location);
 
+  function clickedSaveBtn() {
+    var link_url = '';
+
+    if (formText.discountCode == '') {
+      link_url = "".concat(productData.productUrl, "?").concat(formText.campaignSource == '' ? '' : "utm_source=".concat(formText.campaignSource.replace(/ /g, '%20'))).concat(formText.campaignMedium == '' ? '' : "&utm_medium=".concat(formText.campaignMedium.replace(/ /g, '%20'))).concat(formText.campaignName == '' ? '' : "&utm_campaign=".concat(formText.campaignName.replace(/ /g, '%20'))).concat(formText.campaignTerm == '' ? '' : "&utm_term=".concat(formText.campaignTerm.replace(/ /g, '%20'))).concat(formText.campaignContent == '' ? '' : "&utm_campaign=".concat(formText.campaignContent.replace(/ /g, '%20')));
+    } else {
+      link_url = "".concat(domainUrl, "/discount/").concat(formText.discountCode, "?redirect=%2Fproducts%2F").concat(slug).concat(formText.campaignSource == '' ? '' : "&utm_source=".concat(formText.campaignSource.replace(/ /g, '%20'))).concat(formText.campaignMedium == '' ? '' : "&utm_medium=".concat(formText.campaignMedium.replace(/ /g, '%20'))).concat(formText.campaignName == '' ? '' : "&utm_campaign=".concat(formText.campaignName.replace(/ /g, '%20'))).concat(formText.campaignTerm == '' ? '' : "&utm_term=".concat(formText.campaignTerm.replace(/ /g, '%20'))).concat(formText.campaignContent == '' ? '' : "&utm_campaign=".concat(formText.campaignContent.replace(/ /g, '%20')));
+    }
+
+    axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('/api/createlink', {
+      campaign_source: formText.campaignSource,
+      campaign_medium: formText.campaignMedium,
+      campaign_name: formText.campaignName,
+      campaign_term: formText.campaignTerm,
+      campaign_content: formText.campaignContent,
+      discount_code: formText.discountCode,
+      original_content_url: productData.productUrl,
+      original_content_title: productData.title,
+      original_content_id: productData.id,
+      link_type: 'product',
+      link_img_url: productData.images[0].originalSrc,
+      user_id: document.getElementById("userId").value,
+      link_url: link_url
+    }).then(function (response) {
+      if (response.data == "Saved Data") {
+        setShowToast(true);
+        history.push('/app/links/all');
+      }
+
+      console.log(response);
+    })["catch"](function (error) {
+      setShowErrorToast(true);
+      setShowToast(true);
+      console.log(error);
+    });
+  }
+
   var handleResourcePicker = function handleResourcePicker(resource) {
     axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("/app/graphql", {
       query: "{\n                        product(id: \"".concat(resource.selection[0].id, "\") {\n                            title\n                            description\n                            onlineStoreUrl\n                        }\n                    }")
@@ -95232,6 +95269,7 @@ var CreateNewProductLink = function CreateNewProductLink() {
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "d-inline-block dropdown"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    onClick: clickedSaveBtn,
     type: "button",
     className: "btn-shadow dropdown-toggle btn btn-info"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {

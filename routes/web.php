@@ -44,7 +44,6 @@ Route::get('/app/{path}', [
     'where' => ['path' => '.*']
 ]);
 
-
 Route::post('/app/graphql', [
     'uses' => 'DashboardController@graphql',
     'as' => 'qraphqlapi']);

@@ -24,7 +24,7 @@ class LinkController extends Controller
      */
     public function create()
     {
-        //
+        return "saved data";
     }
 
     /**
@@ -35,7 +35,7 @@ class LinkController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return "saved data";
     }
 
     /**

@@ -23,6 +23,44 @@ const CreateNewProductLink = () => {
 
     useRoutePropagation(location);
 
+    function clickedSaveBtn(){
+        let link_url = '';
+
+        if(formText.discountCode == ''){
+            link_url = `${productData.productUrl}?${formText.campaignSource == '' ? '' : `utm_source=${formText.campaignSource.replace(/ /g, '%20')}`}${formText.campaignMedium == '' ? '' : `&utm_medium=${formText.campaignMedium.replace(/ /g, '%20')}`}${formText.campaignName == '' ? '' : `&utm_campaign=${formText.campaignName.replace(/ /g, '%20')}`}${formText.campaignTerm == '' ? '' : `&utm_term=${formText.campaignTerm.replace(/ /g, '%20')}`}${formText.campaignContent == '' ? '' : `&utm_campaign=${formText.campaignContent.replace(/ /g, '%20')}`}`
+        } else {
+            link_url = `${domainUrl}/discount/${formText.discountCode}?redirect=%2Fproducts%2F${slug}${formText.campaignSource == '' ? '' : `&utm_source=${formText.campaignSource.replace(/ /g, '%20')}`}${formText.campaignMedium == '' ? '' : `&utm_medium=${formText.campaignMedium.replace(/ /g, '%20')}`}${formText.campaignName == '' ? '' : `&utm_campaign=${formText.campaignName.replace(/ /g, '%20')}`}${formText.campaignTerm == '' ? '' : `&utm_term=${formText.campaignTerm.replace(/ /g, '%20')}`}${formText.campaignContent == '' ? '' : `&utm_campaign=${formText.campaignContent.replace(/ /g, '%20')}`}`
+        }
+        
+        axios.post('/api/createlink', {
+            campaign_source: formText.campaignSource,
+            campaign_medium: formText.campaignMedium,
+            campaign_name: formText.campaignName,
+            campaign_term: formText.campaignTerm,
+            campaign_content: formText.campaignContent,
+            discount_code: formText.discountCode,
+            original_content_url: productData.productUrl,
+            original_content_title: productData.title,
+            original_content_id: productData.id,
+            link_type: 'product',
+            link_img_url: productData.images[0].originalSrc,
+            user_id: document.getElementById("userId").value,
+            link_url: link_url
+          })
+          .then(function (response) {
+                if(response.data == "Saved Data"){
+                      setShowToast(true);
+                    history.push('/app/links/all')
+                }
+            console.log(response);
+          })
+          .catch(function (error) {
+            setShowErrorToast(true);
+            setShowToast(true);
+            console.log(error);
+          });
+    }
+
     const handleResourcePicker = resource => {
         axios
             .post("/app/graphql", {
@@ -94,6 +132,7 @@ const CreateNewProductLink = () => {
                         </button>
                         <div className="d-inline-block dropdown">
                             <button
+                                onClick={clickedSaveBtn}
                                 type="button"
                                 className="btn-shadow dropdown-toggle btn btn-info"
                             >
