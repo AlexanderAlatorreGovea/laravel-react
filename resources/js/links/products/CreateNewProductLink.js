@@ -2,16 +2,22 @@ import React, { useState } from "react";
 import {
     TitleBar,
     useRoutePropagation,
-    ResourcePicker
+    ResourcePicker,
+    Toast
 } from "@shopify/app-bridge-react";
 import { useLocation, useHistory } from "react-router-dom";
 import axios from "axios";
 
-const CreateNewCollectionLink = () => {
-    const location = useLocation();
+export default function CreateNewLink(props) {
+    let location = useLocation();
+    // console.log(location)
+    useRoutePropagation(location);
     const history = useHistory();
+
     const [resourcePickerOpen, setResourcePickerOpen] = useState(true);
-    const [collectionData, setCollectionData] = useState(false);
+    const [showToast, setShowToast] = useState(false);
+    const [showErrorToast, setShowErrorToast] = useState(false);
+    const [productData, setProductData] = useState(false);
     const [formText, setFormText] = useState({
         discountCode: "",
         campaignSource: "",
@@ -21,45 +27,44 @@ const CreateNewCollectionLink = () => {
         campaignContent: ""
     });
 
-    useRoutePropagation(location);
+    const domainUrl = `${productData.productUrl}`.match(/^(?:\/\/|[^\/]+)*/)[0];
+    const slug = `${productData.productUrl}`.match(/[^\/]+$/)[0];
 
-    const slugify = text =>
-        text
-            .toString()
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "")
-            .toLowerCase()
-            .trim()
-            .replace(/\s+/g, "-")
-            .replace(/[^\w-]+/g, "")
-            .replace(/--+/g, "-");
+    function HandleResourcePicker(resource) {
+        // console.log(resource.selection[0])
 
-    const handleResourcePicker = resource => {
         axios
             .post("/app/graphql", {
-                query: `{
-                       collection(id: "${resource.selection[0].id}") {
-                           title
-                       }
-                    }`
+                query: `
+            {
+                product(id: "${resource.selection[0].id}") {
+                  onlineStoreUrl
+                }
+            }
+            `
             })
             .then(function(response) {
-                const collectionInfo = {
+                // handle success
+                let productInfo = {
                     ...resource.selection[0],
-                    collectionUrl: `https://shoparoe.myshopify.com/collections/${slugify(
-                        response.data.collection.title
-                    )}`
+                    productUrl: response.data.product.onlineStoreUrl
                 };
-
-                setCollectionData(collectionInfo);
+                // console.log("response from server");
+                // console.log(response);
+                // console.log("new object productinfo");
+                console.log(productInfo);
+                setProductData(productInfo);
             })
             .catch(function(error) {
+                // handle error
                 console.log(error);
+            })
+            .then(function() {
+                // always executed
             });
-    };
-
-    const handleText = (name, text) => {
-        const newState = {
+    }
+    function handleText(name, text) {
+        let newState = {
             [name]: text
         };
 
@@ -68,144 +73,216 @@ const CreateNewCollectionLink = () => {
             ...newState
         });
         console.log(formText);
-    };
+    }
 
+    function clickedSaveBtn() {
+        let link_url = "";
+        if (formText.discountCode == "") {
+            link_url = `${productData.productUrl}?${
+                formText.campaignSource == ""
+                    ? ""
+                    : `utm_source=${formText.campaignSource.replace(
+                          / /g,
+                          "%20"
+                      )}`
+            }${
+                formText.campaignMedium == ""
+                    ? ""
+                    : `&utm_medium=${formText.campaignMedium.replace(
+                          / /g,
+                          "%20"
+                      )}`
+            }${
+                formText.campaignName == ""
+                    ? ""
+                    : `&utm_campaign=${formText.campaignName.replace(
+                          / /g,
+                          "%20"
+                      )}`
+            }${
+                formText.campaignTerm == ""
+                    ? ""
+                    : `&utm_term=${formText.campaignTerm.replace(/ /g, "%20")}`
+            }${
+                formText.campaignContent == ""
+                    ? ""
+                    : `&utm_campaign=${formText.campaignContent.replace(
+                          / /g,
+                          "%20"
+                      )}`
+            }`;
+        } else {
+            link_url = `${domainUrl}/discount/${
+                formText.discountCode
+            }?redirect=%2Fproducts%2F${slug}${
+                formText.campaignSource == ""
+                    ? ""
+                    : `&utm_source=${formText.campaignSource.replace(
+                          / /g,
+                          "%20"
+                      )}`
+            }${
+                formText.campaignMedium == ""
+                    ? ""
+                    : `&utm_medium=${formText.campaignMedium.replace(
+                          / /g,
+                          "%20"
+                      )}`
+            }${
+                formText.campaignName == ""
+                    ? ""
+                    : `&utm_campaign=${formText.campaignName.replace(
+                          / /g,
+                          "%20"
+                      )}`
+            }${
+                formText.campaignTerm == ""
+                    ? ""
+                    : `&utm_term=${formText.campaignTerm.replace(/ /g, "%20")}`
+            }${
+                formText.campaignContent == ""
+                    ? ""
+                    : `&utm_campaign=${formText.campaignContent.replace(
+                          / /g,
+                          "%20"
+                      )}`
+            }`;
+        }
+        axios
+            .post("/api/createlink", {
+                campaign_source: formText.campaignSource,
+                campaign_medium: formText.campaignMedium,
+                campaign_name: formText.campaignName,
+                campaign_term: formText.campaignTerm,
+                campaign_content: formText.campaignContent,
+                discount_code: formText.discountCode,
+                original_content_url: `https://shoparoe.myshopify.com/`,
+                original_content_title: productData.title,
+                original_content_id: productData.id,
+                link_type: "product",
+                link_img_url: productData.images[0].originalSrc,
+                user_id: document.getElementById("userId").value,
+                link_url: link_url
+            })
+            .then(function(response) {
+                if (response.data == "Saved Data") {
+                    setShowToast(true);
+                    history.push("/app/links/all");
+                }
+                console.log(response);
+            })
+            .catch(function(error) {
+                setShowErrorToast(true);
+                setShowToast(true);
+                console.log(error);
+            });
+    }
     return (
         <>
-            <TitleBar title="Create New Collection Link" />
+            <TitleBar title="Create New Product Link" />
+            {showToast ? (
+                <Toast
+                    content={`Created Link`}
+                    onDismiss={() => {
+                        setShowToast(false);
+                        setShowErrorToast(false);
+                    }}
+                    error={showErrorToast}
+                />
+            ) : null}
             <ResourcePicker
-                resourceType="Collection"
+                resourceType="Product"
                 open={resourcePickerOpen}
-                onSelection={handleResourcePicker}
+                onSelection={HandleResourcePicker}
                 onCancel={() => history.push("/app")}
             />
-            <div className={`app-page-title ${collectionData ? "" : "d-none"}`}>
+            <div
+                className={
+                    productData == false
+                        ? "app-page-title d-none"
+                        : "app-page-title"
+                }
+            >
                 <div className="page-title-wrapper">
                     <div className="page-title-heading">
                         <div className="page-title-icon">
                             <i className="pe-7s-display1 icon-gradient bg-premium-dark"></i>
                         </div>
                         <div>
-                            Create New Collection Link
+                            Create A New Product Link
                             <div className="page-title-subheading">
-                                Wide selection of forms controls, using the
-                                Bootstrap 4 code base, but built with React.
+                                Choose a product and create a link to promote
+                                product.
                             </div>
                         </div>
                     </div>
                     <div className="page-title-actions">
-                        <button
-                            type="button"
-                            data-toggle="tooltip"
-                            title="Example Tooltip"
-                            data-placement="bottom"
-                            className="btn-shadow mr-3 btn btn-dark"
-                        >
-                            <i className="fa fa-star"></i>
-                        </button>
                         <div className="d-inline-block dropdown">
                             <button
                                 type="button"
-                                className="btn-shadow dropdown-toggle btn btn-info"
+                                className="btn-shadow btn btn-info"
+                                onClick={clickedSaveBtn}
                             >
                                 <span className="btn-icon-wrapper pr-2 opacity-7">
                                     <i className="fa fa-business-time fa-w-20"></i>
                                 </span>
-                                Buttons
+                                Save
                             </button>
-                            <div
-                                role="menu"
-                                className="dropdown-menu dropdown-menu-right"
-                            >
-                                <ul className="nav flex-column">
-                                    <li className="nav-item">
-                                        <a href="#;" className="nav-link">
-                                            <i className="nav-link-icon lnr-inbox"></i>
-                                            <span>Inbox</span>
-                                            <div className="ml-auto badge badge-pill badge-secondary">
-                                                86
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a href="#;" className="nav-link">
-                                            <i className="nav-link-icon lnr-book"></i>
-                                            <span>Book</span>
-                                            <div className="ml-auto badge badge-pill badge-danger">
-                                                5
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a href="#;" className="nav-link">
-                                            <i className="nav-link-icon lnr-picture"></i>
-                                            <span>Picture</span>
-                                        </a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a
-                                            disabled
-                                            href="#;"
-                                            className="nav-link disabled"
-                                        >
-                                            <i className="nav-link-icon lnr-file-empty"></i>
-                                            <span>File Disabled</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            {collectionData && (
+            {productData == false ? (
+                ""
+            ) : (
                 <Content
-                    collectionData={collectionData}
-                    handleText={handleText}
+                    productData={productData}
                     formText={formText}
+                    handleText={handleText}
+                    slug={slug}
+                    domainUrl={domainUrl}
                 />
             )}
         </>
     );
-};
-
-function UrlPreview({ formText, collectionData, domainUrl, slug }) {
-    if (formText.discountCode == "") {
+}
+function UrlPreview(props) {
+    if (props.formText.discountCode == "") {
         return (
             <>
                 <div className="position-relative form-group">
-                    {`${collectionData.collectionUrl}?${
-                        formText.campaignSource == ""
+                    {`https://shoparoe.myshopify.com/?${
+                        props.formText.campaignSource == ""
                             ? ""
-                            : `utm_source=${formText.campaignSource.replace(
+                            : `utm_source=${props.formText.campaignSource.replace(
                                   / /g,
                                   "%20"
                               )}`
                     }${
-                        formText.campaignMedium == ""
+                        props.formText.campaignMedium == ""
                             ? ""
-                            : `&utm_medium=${formText.campaignMedium.replace(
+                            : `&utm_medium=${props.formText.campaignMedium.replace(
                                   / /g,
                                   "%20"
                               )}`
                     }${
-                        formText.campaignName == ""
+                        props.formText.campaignName == ""
                             ? ""
-                            : `&utm_campaign=${formText.campaignName.replace(
+                            : `&utm_campaign=${props.formText.campaignName.replace(
                                   / /g,
                                   "%20"
                               )}`
                     }${
-                        formText.campaignTerm == ""
+                        props.formText.campaignTerm == ""
                             ? ""
-                            : `&utm_term=${formText.campaignTerm.replace(
+                            : `&utm_term=${props.formText.campaignTerm.replace(
                                   / /g,
                                   "%20"
                               )}`
                     }${
-                        formText.campaignContent == ""
+                        props.formText.campaignContent == ""
                             ? ""
-                            : `&utm_campaign=${formText.campaignContent.replace(
+                            : `&utm_campaign=${props.formText.campaignContent.replace(
                                   / /g,
                                   "%20"
                               )}`
@@ -217,40 +294,42 @@ function UrlPreview({ formText, collectionData, domainUrl, slug }) {
         return (
             <>
                 <div className="position-relative form-group">
-                    {`${domainUrl}/discount/${
-                        formText.discountCode
-                    }?redirect=%2Fcollections%2F${slug}${
-                        formText.campaignSource == ""
+                    {`https://shoparoe.myshopify.com/${
+                        props.productData.title
+                    }/discount/${
+                        props.formText.discountCode
+                    }?redirect=%2Fproducts%2F${props.slug}${
+                        props.formText.campaignSource == ""
                             ? ""
-                            : `&utm_source=${formText.campaignSource.replace(
+                            : `&utm_source=${props.formText.campaignSource.replace(
                                   / /g,
                                   "%20"
                               )}`
                     }${
-                        formText.campaignMedium == ""
+                        props.formText.campaignMedium == ""
                             ? ""
-                            : `&utm_medium=${formText.campaignMedium.replace(
+                            : `&utm_medium=${props.formText.campaignMedium.replace(
                                   / /g,
                                   "%20"
                               )}`
                     }${
-                        formText.campaignName == ""
+                        props.formText.campaignName == ""
                             ? ""
-                            : `&utm_campaign=${formText.campaignName.replace(
+                            : `&utm_campaign=${props.formText.campaignName.replace(
                                   / /g,
                                   "%20"
                               )}`
                     }${
-                        formText.campaignTerm == ""
+                        props.formText.campaignTerm == ""
                             ? ""
-                            : `&utm_term=${formText.campaignTerm.replace(
+                            : `&utm_term=${props.formText.campaignTerm.replace(
                                   / /g,
                                   "%20"
                               )}`
                     }${
-                        formText.campaignContent == ""
+                        props.formText.campaignContent == ""
                             ? ""
-                            : `&utm_campaign=${formText.campaignContent.replace(
+                            : `&utm_campaign=${props.formText.campaignContent.replace(
                                   / /g,
                                   "%20"
                               )}`
@@ -261,32 +340,28 @@ function UrlPreview({ formText, collectionData, domainUrl, slug }) {
     }
 }
 
-const Content = ({ collectionData, formText, handleText }) => {
-    const domainUrl = `${collectionData.collectionUrl}`.match(
-        /^(?:\/\/|[^\/]+)*/
-    )[0];
-    const slug = `${collectionData.collectionUrl}`.match(/[^\/]+$/)[0];
+function Content(props) {
     return (
         <>
-            <div className={`row ${collectionData ? "" : "d-none"}`}>
+            <div className={"row"}>
                 <div className="col-md-6">
                     <div className="main-card mb-3 card">
                         <div className="card-body">
                             <h5 className="card-title">Controls Types</h5>
-                            <form className>
+                            <form>
                                 <div className="position-relative form-group">
-                                    <label htmlFor="collectionUrl">
-                                        collection URL
+                                    <label htmlFor="productUrl">
+                                        Product URL
                                     </label>
                                     <input
-                                        defaultValue={
-                                            collectionData.collectionUrl
-                                        }
-                                        name="collectionUrl"
-                                        id="collectionUrl"
-                                        placeholder="collection URL"
+                                        name="productUrl"
+                                        id="productUrl"
+                                        placeholder="Product URL"
                                         type="text"
                                         className="form-control"
+                                        defaultValue={
+                                            props.productData.productUrl
+                                        }
                                     />
                                 </div>
                                 <div className="position-relative form-group">
@@ -295,17 +370,17 @@ const Content = ({ collectionData, formText, handleText }) => {
                                     </label>
                                     <input
                                         onChange={event =>
-                                            handleText(
+                                            props.handleText(
                                                 "discountCode",
                                                 event.target.value
                                             )
                                         }
-                                        value={formText.discountCode}
                                         name="discountCode"
                                         id="discountCode"
                                         placeholder="50JULY4, 2021XMAS"
                                         type="text"
                                         className="form-control"
+                                        value={props.formText.discountCode}
                                     />
                                 </div>
                                 <div className="position-relative form-group">
@@ -313,18 +388,18 @@ const Content = ({ collectionData, formText, handleText }) => {
                                         Campaign Source
                                     </label>
                                     <input
-                                        value={formText.campaignSource}
-                                        name="campaignSource"
-                                        id="campaignSource"
                                         onChange={event =>
-                                            handleText(
+                                            props.handleText(
                                                 "campaignSource",
                                                 event.target.value
                                             )
                                         }
+                                        name="campaignSource"
+                                        id="campaignSource"
                                         placeholder="Google, Youtube, Instagram"
                                         type="text"
                                         className="form-control"
+                                        value={props.formText.campaignSource}
                                     />
                                 </div>
                                 <div className="position-relative form-group">
@@ -332,18 +407,18 @@ const Content = ({ collectionData, formText, handleText }) => {
                                         Campaign Medium
                                     </label>
                                     <input
-                                        name="campaignMedium"
-                                        id="campaignMedium"
-                                        placeholder="CPC, Banner, Instagram Profile Link"
-                                        type="text"
                                         onChange={event =>
-                                            handleText(
+                                            props.handleText(
                                                 "campaignMedium",
                                                 event.target.value
                                             )
                                         }
-                                        value={formText.campaignMedium}
+                                        name="campaignMedium"
+                                        id="campaignMedium"
+                                        placeholder="CPC, Banner, Instagram Profile Link"
+                                        type="text"
                                         className="form-control"
+                                        value={props.formText.campaignMedium}
                                     />
                                 </div>
                                 <div className="position-relative form-group">
@@ -351,18 +426,18 @@ const Content = ({ collectionData, formText, handleText }) => {
                                         Campaign Name
                                     </label>
                                     <input
-                                        value={formText.campaignName}
-                                        name="campaignName"
                                         onChange={event =>
-                                            handleText(
+                                            props.handleText(
                                                 "campaignName",
                                                 event.target.value
                                             )
                                         }
+                                        name="campaignName"
                                         id="campaignName"
                                         placeholder="50July42020, Labor Day 2020, COUPON234KID"
                                         type="text"
                                         className="form-control"
+                                        value={props.formText.campaignName}
                                     />
                                 </div>
                                 <div className="position-relative form-group">
@@ -370,9 +445,8 @@ const Content = ({ collectionData, formText, handleText }) => {
                                         Campaign Term (Optional)
                                     </label>
                                     <input
-                                        value={formText.campaignTerm}
                                         onChange={event =>
-                                            handleText(
+                                            props.handleText(
                                                 "campaignTerm",
                                                 event.target.value
                                             )
@@ -382,6 +456,7 @@ const Content = ({ collectionData, formText, handleText }) => {
                                         placeholder="Add Paid Keywords"
                                         type="text"
                                         className="form-control"
+                                        value={props.formText.campaignTerm}
                                     />
                                 </div>
                                 <div className="position-relative form-group">
@@ -389,58 +464,54 @@ const Content = ({ collectionData, formText, handleText }) => {
                                         Campaign Content
                                     </label>
                                     <input
-                                        value={formText.campaignContent}
-                                        name="campaignContent"
-                                        id="campaignContent"
                                         onChange={event =>
-                                            handleText(
+                                            props.handleText(
                                                 "campaignContent",
                                                 event.target.value
                                             )
                                         }
+                                        name="campaignContent"
+                                        id="campaignContent"
                                         placeholder="Girl With Laptop Image Ad, Image3, Banner 5"
                                         type="text"
                                         className="form-control"
+                                        value={props.formText.campaignContent}
                                     />
                                 </div>
-
-                                <button className="mt-1 btn btn-primary">
-                                    Submit
-                                </button>
                             </form>
                         </div>
                     </div>
                 </div>
+
                 <div className="col-md-6">
                     <div className="main-card mb-3 card">
                         <div className="card-body">
-                            <h5 className="card-title">Converse</h5>
+                            <h5 className="card-title">Product</h5>
                             <div className="row mb-3">
                                 <div className="col-md-4">
                                     <img
-                                        src={`${collectionData.image.originalSrc}`}
+                                        src={
+                                            props.productData.images[0]
+                                                .originalSrc
+                                        }
                                         className="img-fluid"
                                     />
                                 </div>
                                 <div className="col-md-8 d-flex align-items-center">
-                                    <h2>{collectionData.title}</h2>
+                                    <h2>{props.productData.title}</h2>
                                 </div>
                             </div>
                             <h5 className="card-title">Link Preview</h5>
-                            <div className="position-relative form-group">
-                                <UrlPreview
-                                    collectionData={collectionData}
-                                    formText={formText}
-                                    domainUrl={domainUrl}
-                                    slug={slug}
-                                />
-                            </div>
+                            <UrlPreview
+                                productData={props.productData}
+                                formText={props.formText}
+                                domainUrl={props.domainUrl}
+                                slug={props.slug}
+                            />
                         </div>
                     </div>
                 </div>
             </div>
         </>
     );
-};
-
-export default CreateNewCollectionLink;
+}

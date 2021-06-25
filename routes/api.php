@@ -19,3 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth.shopify')->post('/createlink', 'LinkController@store');
+
+Route::middleware('auth.shopify')->get('/links', 'LinkController@index');

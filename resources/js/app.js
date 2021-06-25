@@ -6,9 +6,9 @@ import { Provider, TitleBar } from "@shopify/app-bridge-react";
 
 import MainLayout from "./layouts/MainLayout";
 import Home from "./Home";
-import CreateNewProductLink from "./links/CreateNewProductLink";
-import CreateNewCollectionLink from "./links/CreateNewCollectionLink";
-import CreateNewCustomLink from "./links/CreateNewCustomLink";
+import CreateNewProductLink from "./links/products/CreateNewProductLink";
+import CreateNewCollectionLink from "./links/collections/CreateNewCollectionLink";
+import CreateNewCustomLink from "./links/custom/CreateNewCustomLink";
 import ShowAllLinks from './links/ShowAllLinks';
 
 export default class App extends Component {
@@ -25,18 +25,27 @@ export default class App extends Component {
                     <Router>
                         <TitleBar title="Polaris Demo" />
                         <MainLayout>
-                            <Switch> 
+                        <Switch>
                                 <Route path="/app/links/product/new">
                                     <CreateNewProductLink />
                                 </Route>
                                 <Route path="/app/links/collection/new">
                                     <CreateNewCollectionLink />
                                 </Route>
+                                <Route path="/app/links/collections/:id/edit">
+                                    <EditCollectionLink />
+                                </Route>
                                 <Route path="/app/links/custom/new">
                                     <CreateNewCustomLink />
                                 </Route>
+                                <Route path="/app/links/custom/:id/edit">
+                                    <EditCustomLink />
+                                </Route>
+                                <Route path="/app/links/products/:id/edit">
+                                    <EditProductLink />
+                                </Route>
                                 <Route path="/app/links/all">
-                                    <ShowAllLinks/>
+                                    <ShowAllLinks />
                                 </Route>
                                 <Route path="/app/">
                                     <Home />
