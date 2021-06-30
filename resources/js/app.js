@@ -10,6 +10,9 @@ import CreateNewProductLink from "./links/products/CreateNewProductLink";
 import CreateNewCollectionLink from "./links/collections/CreateNewCollectionLink";
 import CreateNewCustomLink from "./links/custom/CreateNewCustomLink";
 import ShowAllLinks from './links/ShowAllLinks';
+import EditCollectionLink from './links/collections/EditCollectionLink';
+import EditCustomLink from './links/custom/EditCustomLink';
+import EditProductLink from './links/products/EditProductLink';
 
 export default class App extends Component {
     render() {

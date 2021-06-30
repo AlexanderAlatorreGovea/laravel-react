@@ -29,8 +29,6 @@ export default function ShowAllLinks() {
                     let newData = linksData.filter(item => item.id != id);
                     setLinksData(newData);
                 }
-
-                console.log(response);
             })
             .catch(function(error) {
                 console.log(error);
@@ -178,9 +176,7 @@ export default function ShowAllLinks() {
                                                         href={`/app/links/${directory}/${item.id}/edit`}
                                                         className="mb-2 mr-2 btn btn-success"
                                                     >
-                                                        <i className="pe-7s-pen">
-                                                            
-                                                        </i>
+                                                        <i className="pe-7s-pen"></i>
                                                         Edit
                                                     </a>
                                                     <button
@@ -189,9 +185,7 @@ export default function ShowAllLinks() {
                                                         }
                                                         className="mb-2 mr-2 btn btn-danger"
                                                     >
-                                                        <i className="pe-7s-trash">
-                                                            
-                                                        </i>
+                                                        <i className="pe-7s-trash"></i>
                                                         Delete
                                                     </button>
                                                 </td>

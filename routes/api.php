@@ -15,9 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    return $request->user(); 
 });
 
 Route::middleware('auth.shopify')->post('/createlink', 'LinkController@store');
-
 Route::middleware('auth.shopify')->get('/links', 'LinkController@index');
+Route::middleware('auth.shopify')->get('/links/{id}', 'LinkController@edit');
+Route::middleware('auth.shopify')->put('/links/{id}', 'LinkController@update');
+Route::middleware('auth.shopify')->delete('/links/{id}', 'LinkController@destroy');
