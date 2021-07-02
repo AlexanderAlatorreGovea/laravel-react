@@ -51,24 +51,19 @@ export default function CreateNewLink(props){
             `
         })
         .then(function (response) {
-            // handle success
             let collectionInfo = {
                 ...resource.selection[0],
                 collectionUrl: `https://shoparoe.myshopify.com/collections/${slugify(response.data.collection.title)}`
             }
-            // console.log("response from server");
-            // console.log(response);
+
             console.log("new object collectioninfo");
             console.log(collectionInfo);
             setCollectionData(collectionInfo)
         })
         .catch(function (error) {
-            // handle error
             console.log(error);
         })
-        .then(function () {
-            // always executed
-        });
+
     }
     function handleText(name, text){
         let newState = {
@@ -160,8 +155,6 @@ export default function CreateNewLink(props){
 }
 
 function UrlPreview(props){
-    
-
     if(props.formText.discountCode == ''){
         return(<>
             <div className="position-relative form-group">

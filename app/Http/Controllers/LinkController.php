@@ -61,6 +61,11 @@ class LinkController extends Controller
             $link->link_img_url = $request->link_img_url;
         }
         $link->save();
+        $shortlink = new Shortlink;
+        $shortlink->user_id = $request->user_id;
+        $shortlink->link_id = $link->id;
+        $shortlink->slug = uniqid();
+        $shortlink->save();
 
         return "Saved Data";
     }

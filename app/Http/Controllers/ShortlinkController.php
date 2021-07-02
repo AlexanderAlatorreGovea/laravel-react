@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Shortlink;
+use App\Click;
 use Illuminate\Http\Request;
 
 class ShortlinkController extends Controller
@@ -12,9 +13,14 @@ class ShortlinkController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($slug)
     {
-        //
+        $shortlink = Shortlink::firstWhere('slug', $slug);
+        $click = new Click;
+        $click->shortlink_id = $shortlink->id;
+        $click->save();
+        
+        return redirect($shortlink->link->link_url);
     }
 
     /**

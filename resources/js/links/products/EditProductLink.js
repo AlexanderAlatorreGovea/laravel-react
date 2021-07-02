@@ -10,7 +10,7 @@ import axios from "axios";
 
 export default function EditProductLink(props) {
     let location = useLocation();
-    // console.log(location)
+
     useRoutePropagation(location);
     const history = useHistory();
     const link_id = useParams().id;
@@ -30,6 +30,7 @@ export default function EditProductLink(props) {
         title: "",
         id: ""
     });
+    
     const domainUrl = `${productData.productUrl}`.match(/^(?:\/\/|[^\/]+)*/)[0];
     const slug = `${productData.productUrl}`.match(/[^\/]+$/)[0];
 
@@ -92,7 +93,6 @@ export default function EditProductLink(props) {
     }
 
     function HandleResourcePicker(resource) {
-
         axios
             .post("/app/graphql", {
                 query: `

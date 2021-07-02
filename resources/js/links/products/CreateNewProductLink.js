@@ -10,7 +10,6 @@ import axios from "axios";
 
 export default function CreateNewLink(props) {
     let location = useLocation();
-    // console.log(location)
     useRoutePropagation(location);
     const history = useHistory();
 
@@ -49,9 +48,7 @@ export default function CreateNewLink(props) {
                     ...resource.selection[0],
                     productUrl: response.data.product.onlineStoreUrl
                 };
-                // console.log("response from server");
-                // console.log(response);
-                // console.log("new object productinfo");
+
                 console.log(productInfo);
                 setProductData(productInfo);
             })
