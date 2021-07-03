@@ -9,6 +9,12 @@ use DB;
 class DashboardController extends Controller
 {
     public function index() {
+        $user = Auth::user();
+        // if($user->plan["name"] === "Silver Plan") {
+        //     return "You don't have access to this";
+        // } else {
+        //     return view('home');
+        // }
         return view('home');
     }
 

@@ -19,14 +19,13 @@ Route::get('/', function () {
 
 Route::get('/test/enva', function () {
     dd(env('DB_USERNAME')); // dump db variable value one by one
-});
+}); 
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/app', 'DashboardController@index')->middleware(['auth.shopify'])->name('home');
-
+Route::get('/app', 'DashboardController@index')->middleware(['auth.shopify', 'billable'])->name('home');
 
 Route::get('/{slug}', 'ShortlinkController@index');
 
